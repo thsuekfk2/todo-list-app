@@ -1,0 +1,8 @@
+2025/07/02 16:42:42 Warning: Using default session secret. Set SESSION_SECRET environment variable in production.
+2025/07/02 16:42:42 Database tables and indices created successfully
+2025/07/02 16:42:42 Database initialized successfully
+2025/07/02 16:42:42 Test data already exists, skipping insertion
+2025/07/02 16:42:42 Server starting on port 8080
+2025/07/02 16:42:42 Database location: ../data/todo.db
+2025/07/02 16:42:42 Health check: http://localhost:8080/health
+2025/07/02 16:42:42 API base URL: http://localhost:8080/api
