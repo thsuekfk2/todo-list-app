@@ -5,9 +5,10 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 	"todo-list-app/internal/database"
-	"todo-list-app/internal/handlers"
+	handlers_internal "todo-list-app/internal/handlers"
 	"todo-list-app/internal/middleware"
 )
 
@@ -40,8 +41,8 @@ func main() {
 	}
 
 	// Initialize handlers
-	authHandler := handlers.NewAuthHandler(db)
-	todoHandler := handlers.NewTodoHandler(db)
+	authHandler := handlers_internal.NewAuthHandler(db)
+	todoHandler := handlers_internal.NewTodoHandler(db)
 
 	// Setup routes
 	r := mux.NewRouter()
@@ -52,6 +53,11 @@ func main() {
 		w.WriteHeader(http.StatusOK)
 		w.Write([]byte(`{"status": "healthy"}`))
 	}).Methods("GET")
+
+	// Global catch-all for OPTIONS requests
+	r.Methods("OPTIONS").HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+	})
 
 	// API routes
 	api := r.PathPrefix("/api").Subrouter()
@@ -70,8 +76,13 @@ func main() {
 	protected.HandleFunc("/{id}", todoHandler.DeleteTodo).Methods("DELETE")
 	protected.HandleFunc("/{id}/toggle", todoHandler.ToggleTodo).Methods("PATCH")
 
-	// CORS middleware (apply to all routes)
-	r.Use(middleware.CORSMiddleware)
+	// Setup CORS
+	allowedOrigins := handlers.AllowedOrigins([]string{"http://localhost:5173"})
+	allowedMethods := handlers.AllowedMethods([]string{"GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"})
+	allowedHeaders := handlers.AllowedHeaders([]string{"Content-Type", "Authorization"})
+	allowCredentials := handlers.AllowCredentials()
+
+	corsHandler := handlers.CORS(allowedOrigins, allowedMethods, allowedHeaders, allowCredentials)(r)
 
 	// Determine port
 	port := os.Getenv("PORT")
@@ -84,7 +95,7 @@ func main() {
 	log.Printf("Health check: http://localhost:%s/health", port)
 	log.Printf("API base URL: http://localhost:%s/api", port)
 	
-	if err := http.ListenAndServe(":"+port, r); err != nil {
+	if err := http.ListenAndServe(":"+port, corsHandler); err != nil {
 		log.Fatal("Server failed to start:", err)
 	}
 }
