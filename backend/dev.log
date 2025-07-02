@@ -1,8 +1,5 @@
-npm error code ENOENT
-npm error syscall open
-npm error path /Users/hyebin/package.json
-npm error errno -2
-npm error enoent Could not read package.json: Error: ENOENT: no such file or directory, open '/Users/hyebin/package.json'
-npm error enoent This is related to npm not being able to find a file.
-npm error enoent
-npm error A complete log of this run can be found in: /Users/hyebin/.npm/_logs/2025-07-02T07_49_45_554Z-debug-0.log
+npm error Missing script: "dev"
+npm error
+npm error To see a list of scripts, run:
+npm error   npm run
+npm error A complete log of this run can be found in: /Users/hyebin/.npm/_logs/2025-07-02T08_02_00_066Z-debug-0.log

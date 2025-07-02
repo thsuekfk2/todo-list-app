@@ -1,9 +1,9 @@
-2025/07/02 16:48:25 Warning: Using default session secret. Set SESSION_SECRET environment variable in production.
-2025/07/02 16:48:25 Database tables and indices created successfully
-2025/07/02 16:48:25 Database initialized successfully
-2025/07/02 16:48:25 Server starting on port 8080
-2025/07/02 16:48:25 Database location: ../data/todo.db
-2025/07/02 16:48:25 Health check: http://localhost:8080/health
-2025/07/02 16:48:25 API base URL: http://localhost:8080/api
-2025/07/02 16:48:25 Server failed to start:listen tcp :8080: bind: address already in use
+2025/07/02 17:00:55 Warning: Using default session secret. Set SESSION_SECRET environment variable in production.
+2025/07/02 17:00:55 Database tables and indices created successfully
+2025/07/02 17:00:55 Database initialized successfully
+2025/07/02 17:00:55 Server starting on port 8080
+2025/07/02 17:00:55 Database location: ../data/todo.db
+2025/07/02 17:00:55 Health check: http://localhost:8080/health
+2025/07/02 17:00:55 API base URL: http://localhost:8080/api
+2025/07/02 17:00:55 Server failed to start:listen tcp :8080: bind: address already in use
 exit status 1
