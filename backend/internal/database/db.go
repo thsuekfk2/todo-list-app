@@ -95,7 +95,7 @@ func InsertTestData(db *sql.DB) error {
 	// Insert test user (password: "password123" hashed with bcrypt)
 	testUserQuery := `
 	INSERT INTO users (email, password_hash) 
-	VALUES ('test@example.com', '$2a$10$J8K7QX9Q8Q8Q8Q8Q8Q8Q8O7z7z7z7z7z7z7z7z7z7z7z7z7z7z7z7z7');`
+	VALUES ('test@example.com', '$2a$10$570Q1w5Z9hL.WUb3Ch8Xwuycz0R9fFWXBVb9ebw.Os7FDTGmhtj1G');`
 
 	result, err := db.Exec(testUserQuery)
 	if err != nil {

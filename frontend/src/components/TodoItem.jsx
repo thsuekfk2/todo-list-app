@@ -10,9 +10,9 @@ const TodoItem = ({ todo, onUpdate, onToggle, onDelete }) => {
   const [isLoading, setIsLoading] = useState(false)
 
   const priorityColors = {
-    1: 'bg-green-100 text-green-800 border-green-200',
-    2: 'bg-yellow-100 text-yellow-800 border-yellow-200',
-    3: 'bg-red-100 text-red-800 border-red-200',
+    1: 'bg-gradient-to-r from-green-100 to-emerald-100 text-green-800 border-green-200',
+    2: 'bg-gradient-to-r from-yellow-100 to-orange-100 text-orange-800 border-orange-200',
+    3: 'bg-gradient-to-r from-red-100 to-pink-100 text-red-800 border-red-200',
   }
 
   const priorityLabels = {
@@ -89,15 +89,15 @@ const TodoItem = ({ todo, onUpdate, onToggle, onDelete }) => {
 
   if (isEditing) {
     return (
-      <div className="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
-        <form onSubmit={handleSaveEdit} className="space-y-3">
+      <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-xl">
+        <form onSubmit={handleSaveEdit} className="space-y-4">
           <div>
             <input
               type="text"
               value={editFormData.title}
               onChange={(e) => setEditFormData(prev => ({ ...prev, title: e.target.value }))}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-              placeholder="Todo title"
+              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-gray-50 focus:bg-white transition-all duration-200"
+              placeholder="Enter todo title"
               required
             />
           </div>
@@ -106,9 +106,9 @@ const TodoItem = ({ todo, onUpdate, onToggle, onDelete }) => {
             <textarea
               value={editFormData.description}
               onChange={(e) => setEditFormData(prev => ({ ...prev, description: e.target.value }))}
-              rows={2}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-              placeholder="Description (optional)"
+              rows={3}
+              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-gray-50 focus:bg-white transition-all duration-200 resize-none"
+              placeholder="Add a description (optional)"
             />
           </div>
 
@@ -116,7 +116,7 @@ const TodoItem = ({ todo, onUpdate, onToggle, onDelete }) => {
             <select
               value={editFormData.priority}
               onChange={(e) => setEditFormData(prev => ({ ...prev, priority: parseInt(e.target.value) }))}
-              className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-gray-50 focus:bg-white transition-all duration-200"
             >
               <option value={1}>Low Priority</option>
               <option value={2}>Medium Priority</option>
@@ -124,19 +124,27 @@ const TodoItem = ({ todo, onUpdate, onToggle, onDelete }) => {
             </select>
           </div>
 
-          <div className="flex gap-2">
+          <div className="flex gap-3">
             <button
               type="submit"
               disabled={isLoading || !editFormData.title.trim()}
-              className="px-3 py-1.5 bg-blue-600 text-white text-sm rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50"
+              className="flex-1 px-4 py-2.5 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-sm font-semibold rounded-xl hover:from-blue-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50 transition-all duration-200 transform hover:scale-105 shadow-lg"
             >
-              {isLoading ? 'Saving...' : 'Save'}
+              {isLoading ? (
+                <span className="flex items-center justify-center">
+                  <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  Saving...
+                </span>
+              ) : 'Save Changes'}
             </button>
             <button
               type="button"
               onClick={handleCancelEdit}
               disabled={isLoading}
-              className="px-3 py-1.5 bg-gray-300 text-gray-700 text-sm rounded-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 disabled:opacity-50"
+              className="px-4 py-2.5 bg-gray-100 text-gray-700 text-sm font-semibold rounded-xl hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500 disabled:opacity-50 transition-all duration-200 transform hover:scale-105 shadow-md"
             >
               Cancel
             </button>
@@ -147,8 +155,8 @@ const TodoItem = ({ todo, onUpdate, onToggle, onDelete }) => {
   }
 
   return (
-    <div className={`bg-white border border-gray-200 rounded-lg p-4 shadow-sm transition-all duration-200 hover:shadow-md ${
-      todo.completed ? 'opacity-75' : ''
+    <div className={`bg-white border border-gray-200 rounded-2xl p-6 shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-[1.02] ${
+      todo.completed ? 'opacity-75 bg-gray-50' : 'hover:border-blue-200'
     }`}>
       <div className="flex items-start justify-between">
         <div className="flex-1 min-w-0">
@@ -157,10 +165,10 @@ const TodoItem = ({ todo, onUpdate, onToggle, onDelete }) => {
             <button
               onClick={handleToggle}
               disabled={isLoading}
-              className={`flex-shrink-0 w-5 h-5 border-2 rounded-full flex items-center justify-center transition-colors ${
+              className={`flex-shrink-0 w-6 h-6 border-2 rounded-full flex items-center justify-center transition-all duration-200 ${
                 todo.completed
-                  ? 'bg-green-500 border-green-500 text-white'
-                  : 'border-gray-300 hover:border-green-400'
+                  ? 'bg-gradient-to-r from-green-500 to-emerald-500 border-green-500 text-white shadow-lg'
+                  : 'border-gray-300 hover:border-green-400 hover:bg-green-50 hover:scale-110'
               } disabled:opacity-50`}
             >
               {todo.completed && (
@@ -170,13 +178,13 @@ const TodoItem = ({ todo, onUpdate, onToggle, onDelete }) => {
               )}
             </button>
 
-            <h3 className={`text-lg font-medium ${
+            <h3 className={`text-lg font-semibold ${
               todo.completed ? 'line-through text-gray-500' : 'text-gray-900'
             }`}>
               {todo.title}
             </h3>
 
-            <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ${
+            <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold border shadow-sm ${
               priorityColors[todo.priority] || priorityColors[1]
             }`}>
               {priorityLabels[todo.priority] || 'Low'}
@@ -206,7 +214,7 @@ const TodoItem = ({ todo, onUpdate, onToggle, onDelete }) => {
           <button
             onClick={handleEdit}
             disabled={isLoading}
-            className="p-1.5 text-gray-400 hover:text-blue-600 transition-colors disabled:opacity-50"
+            className="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all duration-200 disabled:opacity-50 transform hover:scale-110"
             title="Edit todo"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -217,7 +225,7 @@ const TodoItem = ({ todo, onUpdate, onToggle, onDelete }) => {
           <button
             onClick={handleDelete}
             disabled={isLoading}
-            className="p-1.5 text-gray-400 hover:text-red-600 transition-colors disabled:opacity-50"
+            className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all duration-200 disabled:opacity-50 transform hover:scale-110"
             title="Delete todo"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
